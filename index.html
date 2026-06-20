@@ -550,31 +550,17 @@ p { color: var(--muted2); font-weight: 300; line-height: 1.75; }
   font-weight: 300;
 }
 
-/* ── IMAGE PLACEHOLDER ─────────────── */
-.img-ph {
-  background: var(--bg2);
-  border: 1px dashed rgba(255,255,255,0.12);
+img.fill {
+  width: 100%;
+  display: block;
+  object-fit: cover;
   border-radius: var(--r);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-align: center;
-  padding: 2rem;
 }
 
-.img-ph svg { opacity: 0.3; width: 28px; height: 28px; }
 .r169 { aspect-ratio: 16/9; }
 .r11  { aspect-ratio: 1/1; }
 .r43  { aspect-ratio: 4/3; }
 .r219 { aspect-ratio: 21/9; }
-
-img.fill { width: 100%; display: block; object-fit: cover; }
 
 /* ── NOTE BOX ─────────────────────── */
 .note {
@@ -586,18 +572,6 @@ img.fill { width: 100%; display: block; object-fit: cover; }
   font-size: 11px;
   color: var(--muted2);
   line-height: 1.7;
-}
-
-.fill-note {
-  background: rgba(255,255,255,0.03);
-  border: 1px dashed rgba(255,255,255,0.12);
-  border-radius: var(--r);
-  padding: 0.75rem 1rem;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
-  line-height: 1.6;
-  font-style: italic;
 }
 
 /* ── TAG ──────────────────────────── */
@@ -638,6 +612,8 @@ img.fill { width: 100%; display: block; object-fit: cover; }
   margin-bottom: 1rem;
   overflow: hidden;
   border-radius: var(--r);
+  object-fit: cover;
+  display: block;
 }
 
 .member-name {
@@ -645,13 +621,6 @@ img.fill { width: 100%; display: block; object-fit: cover; }
   font-weight: 500;
   color: var(--text);
   margin-bottom: 4px;
-}
-
-.member-role {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.08em;
 }
 
 /* ── UTILS ────────────────────────── */
@@ -725,7 +694,6 @@ footer {
 </head>
 <body>
 
-<!-- ── NAV ──────────────────────────────────────── -->
 <nav>
   <a class="nav-logo" href="#">
     <div class="nav-logo-mark">
@@ -752,10 +720,9 @@ footer {
   <div class="nav-badge">AI Forum · 2026</div>
 </nav>
 
-<!-- ── HERO ─────────────────────────────────────── -->
 <div class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">projekt dyplomowy · Politechnika Wrocławska · Sztuczna Inteligencja</p>
+    <p class="hero-eyebrow">Projekt naukowo-wdrożeniowy · Politechnika Wrocławska · Sztuczna Inteligencja</p>
     <h1>Hypothesis<span>Forge</span></h1>
     <p class="hero-desc">
       Wieloagentowy system generowania hipotez naukowych.<br>
@@ -784,7 +751,6 @@ footer {
   <div class="hero-bg-num" aria-hidden="true">HF</div>
 </div>
 
-<!-- ── KONTEKST ──────────────────────────────────── -->
 <section id="projekt">
   <div class="section-eye">kontekst</div>
   <div class="grid-2-wide">
@@ -834,7 +800,6 @@ footer {
   </div>
 </section>
 
-<!-- ── ARCHITEKTURA ──────────────────────────────── -->
 <section id="architektura">
   <div class="section-eye">rozwiązanie</div>
   <div class="grid-2">
@@ -911,14 +876,11 @@ footer {
 
       <p class="caption mt-sm">// uproszczony przepływ systemu</p>
 
-      <div class="fill-note mt-md">
-        📷 Wstaw tutaj pełny diagram architektury ze slajdu 06 — podmień ten blok na &lt;img&gt;
-      </div>
+      <img class="fill r169 mt-md" src="assets/images/architektura.png" alt="Diagram architektury Hypothesis Forge">
     </div>
   </div>
 </section>
 
-<!-- ── EKSPLORACJA ───────────────────────────────── -->
 <section>
   <div class="section-eye">eksploracja grafu wiedzy</div>
   <div class="grid-2">
@@ -952,16 +914,12 @@ footer {
     </div>
 
     <div>
-      <div class="img-ph r11">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="7" cy="10" r="2"/><circle cx="17" cy="15" r="2"/></svg>
-        Wstaw wykres „Relewantność vs. Dywersyfikacja" (slajd 12)
-      </div>
+      <img class="fill r11" src="assets/images/relewantnosc-dywersyfikacja.png" alt="Wykres Relewantność vs Dywersyfikacja">
       <p class="caption mt-sm">// porównanie metod eksploracji grafu</p>
     </div>
   </div>
 </section>
 
-<!-- ── DANE ──────────────────────────────────────── -->
 <section id="dane">
   <div class="section-eye">dane</div>
   <h2>Szeroki korpus artykułów naukowych.</h2>
@@ -987,10 +945,7 @@ footer {
 
   <div class="grid-2 mt-lg">
     <div>
-      <div class="img-ph r169">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2"/><circle cx="4" cy="6" r="1.5"/><circle cx="20" cy="6" r="1.5"/><circle cx="4" cy="18" r="1.5"/><circle cx="20" cy="18" r="1.5"/><circle cx="12" cy="3" r="1.5"/><line x1="12" y1="12" x2="4" y2="6" stroke="currentColor"/><line x1="12" y1="12" x2="20" y2="6" stroke="currentColor"/><line x1="12" y1="12" x2="4" y2="18" stroke="currentColor"/><line x1="12" y1="12" x2="20" y2="18" stroke="currentColor"/><line x1="4" y1="6" x2="20" y2="6" stroke="currentColor" opacity=".4"/><line x1="4" y1="18" x2="20" y2="18" stroke="currentColor" opacity=".4"/></svg>
-        Wstaw wizualizację grafu wiedzy (slajd 08)
-      </div>
+      <img class="fill r169" src="assets/images/wizualizacja-grafu.png" alt="Wizualizacja struktury połączeń grafu wiedzy">
       <p class="caption mt-sm">// fragment połączeń z grafu — 320k krawędzi cytowań</p>
     </div>
 
@@ -1002,28 +957,28 @@ footer {
           <div class="terminal-dot"></div>
           <div class="terminal-dot"></div>
           <div class="terminal-dot"></div>
-          <span class="terminal-title">graph_stats.py</span>
+          <span class="terminal-title">data_pipeline.py</span>
         </div>
         <div class="terminal-body">
-          <span class="t-comment"># Właściwości grafu wiedzy</span><br>
-          nodes = <span class="t-num">50_000</span><br>
-          edges = <span class="t-num">320_000</span><br>
-          avg_degree = <span class="t-num">6.4</span><br>
-          domain = <span class="t-str">"artificial intelligence"</span><br>
+          <span class="t-comment"># Konfiguracja ekstrakcji danych z API</span><br>
+          <span class="t-key">scraper_engine</span> = <span class="t-str">"Semantic Scholar API"</span><br>
+          <span class="t-key">ocr_processor</span> = <span class="t-str">"DeepSeek-OCR"</span><br>
           <br>
-          <span class="t-comment"># TODO: uzupełnij źródło danych</span><br>
-          <span class="t-comment"># np. Semantic Scholar / arXiv / OpenAlex</span>
+          <span class="t-comment"># Zdefiniowane domeny przeszukiwania (Keywordy)</span><br>
+          <span class="t-key">search_categories</span> = [<br>
+          &nbsp;&nbsp;<span class="t-str">"Core LLM Techniques"</span>,<br>
+          &nbsp;&nbsp;<span class="t-str">"LLM Optimization & Performance"</span>,<br>
+          &nbsp;&nbsp;<span class="t-str">"Multimodal & Cross-Domain LLMs"</span>,<br>
+          &nbsp;&nbsp;<span class="t-str">"LLMs in Science & Research"</span>,<br>
+          &nbsp;&nbsp;<span class="t-str">"Healthcare & Biomedical Applications"</span>,<br>
+          &nbsp;&nbsp;<span class="t-str">"Industry Applications of LLMs"</span><br>
+          ]
         </div>
-      </div>
-
-      <div class="fill-note mt-sm">
-        📝 Uzupełnij źródło korpusu (Semantic Scholar / arXiv / inne) jeśli możesz podać.
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── METRYKI ────────────────────────────────────── -->
 <section>
   <div class="section-eye">ewaluacja</div>
   <div class="grid-2">
@@ -1058,22 +1013,14 @@ footer {
 
     <div>
       <h3>Walidacja oceny automatycznej</h3>
-      <p class="mt-sm">Zbadaliśmy zgodność ocen LLM Judge z anotacjami ludzkimi. Wysoka korelacja potwierdza, że automatyczna ewaluacja jest wiarygodna.</p>
+      <p class="mt-sm">Zbadaliśmy zgodność ocen LLM Judge z adnotacjami ludzkimi na kilkudziesięciu próbkach kontrolnych. Wysoka korelacja, potwierdzona przy użyciu współczynnika <strong>Kappa Cohena</strong>, udowadnia, że automatyczna ewaluacja jest wiarygodna.</p>
 
-      <div class="img-ph r169 mt-md">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20l4-8 4 3 4-6 4 5"/></svg>
-        Wstaw wykres zgodności ludzie ↔ model (slajd 10)
-      </div>
+      <img class="fill r169 mt-md" src="assets/images/zgodnosc-llm-ludzie.png" alt="Wykres zgodności ocen ludzi i modelu">
       <p class="caption mt-sm">// korelacja ocen ludzkich i automatycznych</p>
-
-      <div class="fill-note mt-sm">
-        📝 Uzupełnij: n ≈ ile anotacji, jaka miara zgodności (Cohen κ / Spearman ρ)?
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ── TRENING ────────────────────────────────────── -->
 <section>
   <div class="section-eye">trening systemu agentów</div>
   <div class="grid-2">
@@ -1095,27 +1042,15 @@ footer {
           <p class="stat-val" style="font-size:1.5rem;">−52<span>%</span></p>
         </div>
       </div>
-
-      <div class="fill-note mt-sm">
-        📝 Popraw liczby — to placeholdery. Wstaw rzeczywiste wartości z wykresów ze slajdu 14.
-      </div>
-
-      <div class="fill-note mt-sm">
-        📝 Opcjonalnie: szczegóły treningu (model bazowy, liczba kroków, czas, GPU).
-      </div>
     </div>
 
     <div>
-      <div class="img-ph r169">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="10" width="4" height="10"/><rect x="10" y="6" width="4" height="14"/><rect x="17" y="3" width="4" height="17"/></svg>
-        Wstaw wykres „Wpływ podstawowego treningu na wyniki" (slajd 14)
-      </div>
+      <img class="fill r169" src="assets/images/wyniki-treningu.png" alt="Wykres prezentujący wpływ podstawowego treningu na wyniki">
       <p class="caption mt-sm">// metryki przed i po treningu: podobieństwo, różnorodność, istotność, ugruntowanie, jasność</p>
     </div>
   </div>
 </section>
 
-<!-- ── PERSONALIZACJA ─────────────────────────────── -->
 <section>
   <div class="section-eye">personalizacja</div>
   <div class="grid-2-wide">
@@ -1156,25 +1091,18 @@ footer {
     </div>
 
     <div>
-      <div class="img-ph r169">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="7" height="5" rx="1"/><rect x="15" y="7" width="7" height="5" rx="1"/><rect x="8.5" y="15" width="7" height="5" rx="1"/><path d="M9 9.5h6M12 12v3"/></svg>
-        Wstaw diagram „Ciągłe uczenie preferencji" ze slajdu 17
-      </div>
+      <img class="fill r169" src="assets/images/uczenie-preferencji.png" alt="Diagram przedstawiający proces ciągłego uczenia preferencji">
       <p class="caption mt-sm">// schemat dwufazowego uczenia preferencji użytkownika</p>
     </div>
   </div>
 </section>
 
-<!-- ── GUI / WYNIKI ───────────────────────────────── -->
 <section id="wyniki">
   <div class="section-eye">interfejs i wyniki</div>
   <h2>Hypothesis Forge w działaniu.</h2>
   <p class="lead">Badacz zadaje pytanie — eksplorator przeszukuje graf — generator proponuje dwie hipotezy. Wybór + uzasadnienie kalibrują przyszłe generacje.</p>
 
-  <div class="img-ph r219 mt-lg">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="15" rx="2"/><path d="M2 8h20M7 3v5"/></svg>
-    Wstaw pełny screenshot interfejsu Hypothesis Forge (slajd 18)
-  </div>
+  <img class="fill r219 mt-lg" src="assets/images/interfejs-aplikacji.png" alt="Zrzut ekranu przedstawiający interfejs graficzny programu Hypothesis Forge">
   <p class="caption mt-sm">// interfejs: wybór hipotezy A/B, widok grafu i panel uzasadnienia</p>
 
   <div class="grid-2 mt-lg">
@@ -1182,30 +1110,27 @@ footer {
       <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
         <span class="tag">hipoteza generyczna</span>
       </div>
-      <div class="fill-note">
-        📝 Wklej tutaj przykładową hipotezę wygenerowaną bez personalizacji.
+      
+      <div style="font-size: 0.9rem; color: var(--muted2); line-height: 1.6; padding: 1rem; background: var(--bg2); border-radius: var(--r); border: 1px dashed var(--line2); margin-bottom: 1rem;">
+        [Wklej tutaj treść hipotezy wygenerowanej przed personalizacją]
       </div>
-      <div class="img-ph r43 mt-sm">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
-        Screenshot / tekst hipotezy generycznej
-      </div>
+
+      <img class="fill r43 mt-sm" src="assets/images/hipoteza-generyczna.png" alt="Przykładowy zrzut tekstu hipotezy generycznej">
     </div>
     <div>
       <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
         <span class="tag green">hipoteza spersonalizowana</span>
       </div>
-      <div class="fill-note">
-        📝 Wklej tutaj przykładową hipotezę po kilku iteracjach personalizacji — żeby pokazać różnicę.
+      
+      <div style="font-size: 0.9rem; color: var(--muted2); line-height: 1.6; padding: 1rem; background: rgba(52,211,153,0.04); border-radius: var(--r); border: 1px dashed rgba(52,211,153,0.3); margin-bottom: 1rem;">
+        [Wklej tutaj treść hipotezy wygenerowanej po uwzględnieniu preferencji i personalizacji badacza]
       </div>
-      <div class="img-ph r43 mt-sm" style="border-color: rgba(52,211,153,0.2);">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
-        Screenshot / tekst hipotezy spersonalizowanej
-      </div>
+
+      <img class="fill r43 mt-sm" style="border-color: rgba(52,211,153,0.2);" src="assets/images/hipoteza-spersonalizowana.png" alt="Przykładowy zrzut tekstu hipotezy spersonalizowanej">
     </div>
   </div>
 </section>
 
-<!-- ── ZESPÓŁ ─────────────────────────────────────── -->
 <section id="zespol">
   <div class="section-eye">zespół</div>
   <div class="grid-2-wide">
@@ -1220,46 +1145,29 @@ footer {
         <p style="font-size:1rem; font-weight:500; color: var(--text); margin-bottom:0.25rem;">dr inż. Arkadiusz Janz</p>
         <p style="font-size:13px;">Politechnika Wrocławska · Wydział Informatyki i Telekomunikacji</p>
       </div>
-
-      <div class="fill-note">
-        📝 Opcjonalnie: kilka słów o opiekunie, specjalności lub czego nauczył Was ten projekt.
-      </div>
     </div>
 
     <div class="grid-4">
       <div class="member">
-        <div class="member-img img-ph r11">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;opacity:.3;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        </div>
+        <img class="member-img" src="team/mateusz.jpg" alt="Mateusz Biedka">
         <p class="member-name">Mateusz Biedka</p>
-        <div class="fill-note" style="margin-top:0.4rem; padding: 0.3rem 0.5rem; font-size:9px;">📝 rola</div>
       </div>
       <div class="member">
-        <div class="member-img img-ph r11">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;opacity:.3;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        </div>
+        <img class="member-img" src="team/martin.jpg" alt="Martin Kansik">
         <p class="member-name">Martin Kansik</p>
-        <div class="fill-note" style="margin-top:0.4rem; padding: 0.3rem 0.5rem; font-size:9px;">📝 rola</div>
       </div>
       <div class="member">
-        <div class="member-img img-ph r11">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;opacity:.3;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        </div>
+        <img class="member-img" src="team/tymoteusz.jpg" alt="Tymoteusz Romanowicz">
         <p class="member-name">Tymoteusz Romanowicz</p>
-        <div class="fill-note" style="margin-top:0.4rem; padding: 0.3rem 0.5rem; font-size:9px;">📝 rola</div>
       </div>
       <div class="member">
-        <div class="member-img img-ph r11">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;opacity:.3;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        </div>
+        <img class="member-img" src="team/patryk.jpg" alt="Patryk Świat">
         <p class="member-name">Patryk Świat</p>
-        <div class="fill-note" style="margin-top:0.4rem; padding: 0.3rem 0.5rem; font-size:9px;">📝 rola</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────────── -->
 <footer>
   <div class="footer-l">Hypothesis Forge · AI Forum 2026</div>
   <div class="footer-r">Politechnika Wrocławska · Kierunek Sztuczna Inteligencja</div>
