@@ -1,1 +1,1269 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hypothesis Forge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+:root {
+  --bg:        #0D0F14;
+  --bg2:       #13161D;
+  --bg3:       #1A1E28;
+  --line:      rgba(255,255,255,0.07);
+  --line2:     rgba(255,255,255,0.14);
+  --text:      #E8EAF0;
+  --muted:     #6B7280;
+  --muted2:    #9CA3AF;
+  --accent:    #5B8AF0;
+  --accent2:   #3D6FD4;
+  --accent-bg: rgba(91,138,240,0.08);
+  --accent-bd: rgba(91,138,240,0.25);
+  --green:     #34D399;
+  --mono:      'JetBrains Mono', 'Fira Code', monospace;
+  --sans:      'DM Sans', system-ui, sans-serif;
+  --r:         4px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── GRID OVERLAY ──────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAV ──────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  height: 52px;
+  background: rgba(13,15,20,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-logo-mark svg { width: 14px; height: 14px; }
+
+.nav-logo-text {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0 1rem;
+  letter-spacing: 0.05em;
+  transition: color 0.15s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+.nav-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  border: 1px solid var(--line2);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+/* ── SECTIONS ─────────────────────── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 6rem 2rem;
+  border-bottom: 1px solid var(--line2);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section.full-bleed {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+section.full-bleed > * { padding-left: 2rem; padding-right: 2rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
+
+.section-eye {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-eye::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+}
+
+h1, h2, h3 { font-family: var(--sans); font-weight: 500; }
+
+h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.lead {
+  font-size: 1rem;
+  color: var(--muted2);
+  line-height: 1.75;
+  max-width: 60ch;
+  font-weight: 300;
+}
+
+p { color: var(--muted2); font-weight: 300; line-height: 1.75; }
+
+/* ── HERO ─────────────────────────── */
+.hero {
+  min-height: 100vh;
+  padding-top: 52px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid var(--line2);
+  overflow: hidden;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-eyebrow::before {
+  content: '//';
+  color: var(--muted);
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 2.5rem;
+  max-width: 12ch;
+}
+
+.hero h1 span {
+  color: var(--accent);
+  display: block;
+}
+
+.hero-desc {
+  font-size: 1rem;
+  color: var(--muted2);
+  line-height: 1.7;
+  max-width: 55ch;
+  font-weight: 300;
+  margin-bottom: 3rem;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-meta-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-meta-val {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text);
+}
+
+.hero-bg-num {
+  position: absolute;
+  right: -0.05em;
+  bottom: -0.15em;
+  font-family: var(--mono);
+  font-size: clamp(10rem, 25vw, 22rem);
+  font-weight: 500;
+  color: rgba(255,255,255,0.018);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+}
+
+/* ── LAYOUT HELPERS ───────────────── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.grid-2-wide {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line2);
+  border: 1px solid var(--line2);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line2);
+  border: 1px solid var(--line2);
+}
+
+/* ── CARD ─────────────────────────── */
+.card {
+  background: var(--bg2);
+  padding: 1.75rem;
+}
+
+.card-num {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+}
+
+.card-body {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ── STAT BLOCK ───────────────────── */
+.stat-block {
+  background: var(--bg2);
+  padding: 2rem 1.75rem;
+}
+
+.stat-val {
+  font-family: var(--mono);
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.stat-val span { color: var(--accent); }
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.stat-sub {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* ── TERMINAL BLOCK ───────────────── */
+.terminal {
+  background: var(--bg3);
+  border: 1px solid var(--line2);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.terminal-bar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--line2);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.terminal-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+  opacity: 0.4;
+}
+
+.terminal-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-left: 6px;
+}
+
+.terminal-body {
+  padding: 1.5rem;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 2;
+  color: var(--muted2);
+}
+
+.t-comment { color: var(--muted); }
+.t-key     { color: var(--accent); }
+.t-val     { color: var(--green); }
+.t-str     { color: #F9A8D4; }
+.t-num     { color: #FDBA74; }
+
+/* ── FLOW DIAGRAM ─────────────────── */
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.flow-row {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.flow-node {
+  background: var(--bg3);
+  border: 1px solid var(--line2);
+  padding: 0.85rem 1.1rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted2);
+  letter-spacing: 0.03em;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flow-node.primary {
+  background: var(--accent-bg);
+  border-color: var(--accent-bd);
+  color: var(--accent);
+}
+
+.flow-node.output {
+  background: rgba(52,211,153,0.06);
+  border-color: rgba(52,211,153,0.2);
+  color: var(--green);
+}
+
+.flow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.flow-connector {
+  background: var(--bg2);
+  border-left: 1px solid var(--line2);
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  writing-mode: vertical-rl;
+  letter-spacing: 0.1em;
+}
+
+.flow-arrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* ── LIST ─────────────────────────── */
+.item-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line2);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--line2);
+  transition: background 0.12s;
+}
+
+.item-row:last-child { border-bottom: none; }
+.item-row:hover { background: var(--bg2); }
+
+.item-row.highlight {
+  background: var(--accent-bg);
+  border-color: var(--accent-bd);
+}
+
+.item-idx {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-top: 3px;
+  flex-shrink: 0;
+  width: 2.5ch;
+}
+
+.item-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+
+.item-title.accent { color: var(--accent); }
+
+.item-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 38ch;
+  font-weight: 300;
+}
+
+/* ── IMAGE PLACEHOLDER ─────────────── */
+.img-ph {
+  background: var(--bg2);
+  border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: var(--r);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  padding: 2rem;
+}
+
+.img-ph svg { opacity: 0.3; width: 28px; height: 28px; }
+.r169 { aspect-ratio: 16/9; }
+.r11  { aspect-ratio: 1/1; }
+.r43  { aspect-ratio: 4/3; }
+.r219 { aspect-ratio: 21/9; }
+
+img.fill { width: 100%; display: block; object-fit: cover; }
+
+/* ── NOTE BOX ─────────────────────── */
+.note {
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-bd);
+  border-radius: var(--r);
+  padding: 1rem 1.25rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted2);
+  line-height: 1.7;
+}
+
+.fill-note {
+  background: rgba(255,255,255,0.03);
+  border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: var(--r);
+  padding: 0.75rem 1rem;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ── TAG ──────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border-radius: 100px;
+  border: 1px solid var(--line2);
+  color: var(--muted2);
+  background: var(--bg2);
+}
+
+.tag.blue {
+  border-color: var(--accent-bd);
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.tag.green {
+  border-color: rgba(52,211,153,0.25);
+  color: var(--green);
+  background: rgba(52,211,153,0.07);
+}
+
+/* ── MEMBER CARD ──────────────────── */
+.member {
+  background: var(--bg2);
+  padding: 1.5rem;
+}
+
+.member-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  border-radius: var(--r);
+}
+
+.member-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.member-role {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+/* ── UTILS ────────────────────────── */
+.mt-sm { margin-top: 1rem; }
+.mt-md { margin-top: 2rem; }
+.mt-lg { margin-top: 3rem; }
+.caption {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 0.6rem;
+  letter-spacing: 0.06em;
+}
+
+p + p { margin-top: 0.85rem; }
+
+hr.rule {
+  border: none;
+  border-top: 1px solid var(--line2);
+  margin: 2rem 0;
+}
+
+/* ── FOOTER ───────────────────────── */
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  border-top: 1px solid var(--line2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-l {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-l::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.footer-r {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ── RESPONSIVE ───────────────────── */
+@media (max-width: 860px) {
+  .nav-links, .nav-badge { display: none; }
+  .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
+  .hero-bg-num { display: none; }
+  .grid-2, .grid-2-wide { grid-template-columns: 1fr; gap: 2rem; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+  section { padding: 4rem 1.25rem; }
+  footer { flex-direction: column; gap: 0.75rem; text-align: center; padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="4" cy="4" r="1.5" fill="white"/>
+        <circle cx="10" cy="4" r="1.5" fill="white" opacity=".5"/>
+        <circle cx="4" cy="10" r="1.5" fill="white" opacity=".5"/>
+        <circle cx="10" cy="10" r="1.5" fill="white"/>
+        <line x1="4" y1="4" x2="10" y2="4" stroke="white" stroke-width=".75" opacity=".4"/>
+        <line x1="4" y1="4" x2="10" y2="10" stroke="white" stroke-width=".75" opacity=".4"/>
+        <line x1="4" y1="10" x2="10" y2="10" stroke="white" stroke-width=".75" opacity=".4"/>
+        <line x1="4" y1="4" x2="4" y2="10" stroke="white" stroke-width=".75" opacity=".4"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">hypothesis-forge</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#projekt">projekt</a></li>
+    <li><a href="#architektura">architektura</a></li>
+    <li><a href="#dane">dane</a></li>
+    <li><a href="#wyniki">wyniki</a></li>
+    <li><a href="#zespol">zespół</a></li>
+  </ul>
+  <div class="nav-badge">AI Forum · 2026</div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">projekt dyplomowy · Politechnika Wrocławska · Sztuczna Inteligencja</p>
+    <h1>Hypothesis<span>Forge</span></h1>
+    <p class="hero-desc">
+      Wieloagentowy system generowania hipotez naukowych.<br>
+      Eksplorator przeszukuje graf wiedzy. Generator formułuje hipotezy.<br>
+      Od pytania badawczego do ugruntowanej propozycji — szybciej i szerzej.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">dziedzina</span>
+        <span class="hero-meta-val">AI / NLP</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">korpus</span>
+        <span class="hero-meta-val">50 000 artykułów</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">graf wiedzy</span>
+        <span class="hero-meta-val">320 000 powiązań</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">rok</span>
+        <span class="hero-meta-val">2025 / 2026</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bg-num" aria-hidden="true">HF</div>
+</div>
+
+<!-- ── KONTEKST ──────────────────────────────────── -->
+<section id="projekt">
+  <div class="section-eye">kontekst</div>
+  <div class="grid-2-wide">
+    <div>
+      <h2>Po co automatyzować hipotezy?</h2>
+      <p class="lead">Tempo przyrostu literatury naukowej rośnie szybciej niż jeden badacz jest w stanie ją śledzić. Sformułowanie dobrej hipotezy wymaga syntezy dziesiątek prac — to właśnie robi Hypothesis Forge.</p>
+    </div>
+    <div>
+      <div class="grid-3">
+        <div class="card">
+          <p class="card-num">01 // TEMPO</p>
+          <p class="card-title">Krócej od pytania do hipotezy</p>
+          <p class="card-body">Mniej czasu na przegląd literatury, więcej na weryfikację pomysłów.</p>
+        </div>
+        <div class="card">
+          <p class="card-num">02 // KOSZT</p>
+          <p class="card-title">Mniej ślepych zaułków</p>
+          <p class="card-body">Eksplorator wskazuje ścieżki w grafie cytowań, które trudno dostrzec ręcznie.</p>
+        </div>
+        <div class="card">
+          <p class="card-num">03 // DOSTĘP</p>
+          <p class="card-title">Nauka jako otwarta praktyka</p>
+          <p class="card-body">Narzędzie działa tak samo dla doktoranta, jak i dla studenta piszącego pierwszą pracę.</p>
+        </div>
+      </div>
+
+      <div class="mt-md">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span class="terminal-title">users.json</span>
+          </div>
+          <div class="terminal-body">
+            <span class="t-comment">// Dla kogo?</span><br>
+            <span class="t-key">target_users</span>: [<br>
+            &nbsp;&nbsp;<span class="t-str">"środowisko akademickie"</span>,<br>
+            &nbsp;&nbsp;<span class="t-str">"studenci prac dyplomowych"</span>,<br>
+            &nbsp;&nbsp;<span class="t-str">"działy R&amp;D przemysłu"</span>,<br>
+            &nbsp;&nbsp;<span class="t-str">"pasjonaci nauki"</span><br>
+            ]
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ARCHITEKTURA ──────────────────────────────── -->
+<section id="architektura">
+  <div class="section-eye">rozwiązanie</div>
+  <div class="grid-2">
+    <div>
+      <h2>Architektura agentowa.</h2>
+      <p class="lead">Dwa kooperujące agenty — <strong style="color:var(--text); font-weight:500;">Eksplorator</strong> i <strong style="color:var(--text); font-weight:500;">Generator</strong> — działające na grafie wiedzy zbudowanym z powiązań cytowań.</p>
+
+      <hr class="rule">
+
+      <p>Eksplorator ekstrahuje i kompresuje informacje z grafu, przekazując skompresowany komunikat Generatorowi. Generator rekonstruuje kontekst i formułuje hipotezy. Cały przepływ jest trenowany metodami wzmacniającymi (GRPO / PPO) — funkcja nagrody ocenia zgodność hipotezy z wiedzą źródłową.</p>
+
+      <div class="mt-md">
+        <div class="note">
+          <span style="color: var(--accent);">// kluczowy insight</span><br>
+          Agenty wytwarzają ukierunkowany zadaniowo żargon — uczą się, <em>co</em> i <em>jak</em> przekazywać, eliminując redundancję i szum. Wysoka efektywność przy niższym koszcie obliczeniowym.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="flow">
+        <div class="flow-row">
+          <div class="flow-node">
+            <div class="flow-dot"></div>
+            Zapytanie użytkownika
+          </div>
+        </div>
+        <div class="flow-row" style="padding-left: 2rem;">
+          <div class="flow-arrow">↓</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-node primary">
+            <div class="flow-dot"></div>
+            Eksplorator (Retriever)
+            <span class="tag blue" style="margin-left:auto; font-size:9px;">ekstrakcja + kompresja</span>
+          </div>
+        </div>
+        <div class="flow-row" style="align-items: stretch; gap: 0;">
+          <div style="flex: 1; padding: 0 1rem; display:flex; align-items:center; gap:0.5rem;">
+            <div style="flex:1; height:1px; background: var(--accent-bd);"></div>
+            <span style="font-family: var(--mono); font-size:9px; color:var(--accent); white-space:nowrap;">Graf wiedzy ↑↓</span>
+          </div>
+          <div style="width: 1rem; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <div style="font-family:var(--mono); font-size:12px; color:var(--muted);">↓</div>
+          </div>
+          <div style="flex:1;"></div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-node primary">
+            <div class="flow-dot"></div>
+            Generator
+            <span class="tag blue" style="margin-left:auto; font-size:9px;">rekonstrukcja + generacja</span>
+          </div>
+        </div>
+        <div class="flow-row" style="padding-left: 2rem;">
+          <div class="flow-arrow">↓</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-node output">
+            <div class="flow-dot"></div>
+            Wygenerowana hipoteza
+          </div>
+        </div>
+        <div class="flow-row" style="padding-left: 2rem;">
+          <div class="flow-arrow">↓</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-node">
+            <div class="flow-dot"></div>
+            Funkcja nagrody → ocena → trening agentów
+          </div>
+        </div>
+      </div>
+
+      <p class="caption mt-sm">// uproszczony przepływ systemu</p>
+
+      <div class="fill-note mt-md">
+        📷 Wstaw tutaj pełny diagram architektury ze slajdu 06 — podmień ten blok na &lt;img&gt;
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EKSPLORACJA ───────────────────────────────── -->
+<section>
+  <div class="section-eye">eksploracja grafu wiedzy</div>
+  <div class="grid-2">
+    <div>
+      <h2>Relewantność vs. dywersyfikacja.</h2>
+      <p>Przetestowaliśmy kilka strategii przeszukiwania grafu i porównaliśmy je na dwóch osiach: jak trafne są hipotezy względem zapytania, i jak bardzo są od siebie różne.</p>
+      <p class="mt-sm">Nasza metoda agentowa przesuwa wynik w prawą górną część wykresu — jednocześnie wyżej na obu osiach.</p>
+
+      <div class="mt-md item-list">
+        <div class="item-row">
+          <span class="item-idx">BFS</span>
+          <span class="item-title">Breadth-First Search</span>
+          <span class="item-desc">Wysoka relewantność, niska dywersyfikacja.</span>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">RW</span>
+          <span class="item-title">Random Walk (10 / 20 kroków)</span>
+          <span class="item-desc">Wzrost dywersyfikacji kosztem relewantności.</span>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">PPR</span>
+          <span class="item-title">Personalized PageRank</span>
+          <span class="item-desc">Balans między lokalnością a globalną strukturą.</span>
+        </div>
+        <div class="item-row highlight">
+          <span class="item-idx" style="color:var(--accent);">ARW</span>
+          <span class="item-title accent">Agentic Random Walk</span>
+          <span class="item-desc">Nasza metoda. Najlepszy wynik na obu osiach łącznie.</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="img-ph r11">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="7" cy="10" r="2"/><circle cx="17" cy="15" r="2"/></svg>
+        Wstaw wykres „Relewantność vs. Dywersyfikacja" (slajd 12)
+      </div>
+      <p class="caption mt-sm">// porównanie metod eksploracji grafu</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── DANE ──────────────────────────────────────── -->
+<section id="dane">
+  <div class="section-eye">dane</div>
+  <h2>Szeroki korpus artykułów naukowych.</h2>
+  <p class="lead">Graf wiedzy zbudowany na 50 000 prac naukowych z dziedziny AI, połączonych siecią 320 000 cytowań.</p>
+
+  <div class="grid-3 mt-lg">
+    <div class="stat-block">
+      <p class="stat-label">Artykuły naukowe</p>
+      <p class="stat-val">50<span>k</span></p>
+      <p class="stat-sub">Dziedzina: sztuczna inteligencja</p>
+    </div>
+    <div class="stat-block">
+      <p class="stat-label">Powiązania w grafie</p>
+      <p class="stat-val">320<span>k</span></p>
+      <p class="stat-sub">Cytowania między pracami</p>
+    </div>
+    <div class="stat-block">
+      <p class="stat-label">Ścieżki eksploracji</p>
+      <p class="stat-val">∞</p>
+      <p class="stat-sub">Złożony, gęsty graf wiedzy</p>
+    </div>
+  </div>
+
+  <div class="grid-2 mt-lg">
+    <div>
+      <div class="img-ph r169">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2"/><circle cx="4" cy="6" r="1.5"/><circle cx="20" cy="6" r="1.5"/><circle cx="4" cy="18" r="1.5"/><circle cx="20" cy="18" r="1.5"/><circle cx="12" cy="3" r="1.5"/><line x1="12" y1="12" x2="4" y2="6" stroke="currentColor"/><line x1="12" y1="12" x2="20" y2="6" stroke="currentColor"/><line x1="12" y1="12" x2="4" y2="18" stroke="currentColor"/><line x1="12" y1="12" x2="20" y2="18" stroke="currentColor"/><line x1="4" y1="6" x2="20" y2="6" stroke="currentColor" opacity=".4"/><line x1="4" y1="18" x2="20" y2="18" stroke="currentColor" opacity=".4"/></svg>
+        Wstaw wizualizację grafu wiedzy (slajd 08)
+      </div>
+      <p class="caption mt-sm">// fragment połączeń z grafu — 320k krawędzi cytowań</p>
+    </div>
+
+    <div>
+      <p>Im gęstszy i bardziej zróżnicowany graf, tym bardziej nieoczekiwane i wartościowe mogą być generowane hipotezy. Eksplorator agentowy potrafi znajdować nieoczywiste ścieżki między poddziedzinami, które na pierwszy rzut oka nie mają ze sobą związku.</p>
+
+      <div class="terminal mt-md">
+        <div class="terminal-bar">
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+          <span class="terminal-title">graph_stats.py</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Właściwości grafu wiedzy</span><br>
+          nodes = <span class="t-num">50_000</span><br>
+          edges = <span class="t-num">320_000</span><br>
+          avg_degree = <span class="t-num">6.4</span><br>
+          domain = <span class="t-str">"artificial intelligence"</span><br>
+          <br>
+          <span class="t-comment"># TODO: uzupełnij źródło danych</span><br>
+          <span class="t-comment"># np. Semantic Scholar / arXiv / OpenAlex</span>
+        </div>
+      </div>
+
+      <div class="fill-note mt-sm">
+        📝 Uzupełnij źródło korpusu (Semantic Scholar / arXiv / inne) jeśli możesz podać.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── METRYKI ────────────────────────────────────── -->
+<section>
+  <div class="section-eye">ewaluacja</div>
+  <div class="grid-2">
+    <div>
+      <h2>Czym mierzymy jakość hipotezy?</h2>
+      <p>Trzy komplementarne podejścia — ocena modelu (LLM Judge), miara różnorodności zbioru i dopasowanie do stylu badacza.</p>
+
+      <div class="item-list mt-md">
+        <div class="item-row">
+          <span class="item-idx">01</span>
+          <div>
+            <p class="item-title">LLM Judge</p>
+            <p class="item-desc mt-sm">Ugruntowanie w wiedzy naukowej · Istotność względem zapytania · Klarowność metodologiczna</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">02</span>
+          <div>
+            <p class="item-title">Różnorodność</p>
+            <p class="item-desc mt-sm">Czy system eksploruje różne obszary grafu? Mierzymy zróżnicowanie hipotez w jednej iteracji.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">03</span>
+          <div>
+            <p class="item-title">Persona</p>
+            <p class="item-desc mt-sm">Dopasowanie do preferowanej metodologii i stylu komunikacji konkretnego użytkownika.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3>Walidacja oceny automatycznej</h3>
+      <p class="mt-sm">Zbadaliśmy zgodność ocen LLM Judge z anotacjami ludzkimi. Wysoka korelacja potwierdza, że automatyczna ewaluacja jest wiarygodna.</p>
+
+      <div class="img-ph r169 mt-md">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20l4-8 4 3 4-6 4 5"/></svg>
+        Wstaw wykres zgodności ludzie ↔ model (slajd 10)
+      </div>
+      <p class="caption mt-sm">// korelacja ocen ludzkich i automatycznych</p>
+
+      <div class="fill-note mt-sm">
+        📝 Uzupełnij: n ≈ ile anotacji, jaka miara zgodności (Cohen κ / Spearman ρ)?
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRENING ────────────────────────────────────── -->
+<section>
+  <div class="section-eye">trening systemu agentów</div>
+  <div class="grid-2">
+    <div>
+      <h2>Co zmienia trening?</h2>
+      <p>System trenowany przez GRPO / PPO wyraźnie poprawia podobieństwo do hipotezy docelowej i istotność wobec zapytania. Obserwujemy naturalny trade-off w różnorodności.</p>
+
+      <div class="mt-md grid-3" style="gap:1px; background:var(--line2); border:1px solid var(--line2);">
+        <div class="stat-block" style="padding: 1.25rem;">
+          <p class="stat-label">Podobieństwo ↑</p>
+          <p class="stat-val" style="font-size:1.5rem;">+18<span>%</span></p>
+        </div>
+        <div class="stat-block" style="padding: 1.25rem;">
+          <p class="stat-label">Istotność ↑</p>
+          <p class="stat-val" style="font-size:1.5rem;">+30<span>%</span></p>
+        </div>
+        <div class="stat-block" style="padding: 1.25rem;">
+          <p class="stat-label">Różnorodność ↓</p>
+          <p class="stat-val" style="font-size:1.5rem;">−52<span>%</span></p>
+        </div>
+      </div>
+
+      <div class="fill-note mt-sm">
+        📝 Popraw liczby — to placeholdery. Wstaw rzeczywiste wartości z wykresów ze slajdu 14.
+      </div>
+
+      <div class="fill-note mt-sm">
+        📝 Opcjonalnie: szczegóły treningu (model bazowy, liczba kroków, czas, GPU).
+      </div>
+    </div>
+
+    <div>
+      <div class="img-ph r169">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="10" width="4" height="10"/><rect x="10" y="6" width="4" height="14"/><rect x="17" y="3" width="4" height="17"/></svg>
+        Wstaw wykres „Wpływ podstawowego treningu na wyniki" (slajd 14)
+      </div>
+      <p class="caption mt-sm">// metryki przed i po treningu: podobieństwo, różnorodność, istotność, ugruntowanie, jasność</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PERSONALIZACJA ─────────────────────────────── -->
+<section>
+  <div class="section-eye">personalizacja</div>
+  <div class="grid-2-wide">
+    <div>
+      <h2>System uczy się preferencji badacza.</h2>
+      <p>Każdy użytkownik dostaje indywidualny adapter LoRA aktualizowany przez ciągły feedback. Dwa sygnały trenujące: wybór hipotezy A/B i uzasadnienie decyzji.</p>
+
+      <div class="item-list mt-md">
+        <div class="item-row">
+          <span class="item-idx">01</span>
+          <div>
+            <p class="item-title">Model: indywidualny adapter</p>
+            <p class="item-desc mt-sm">LoRA per użytkownik — lekki, bez ingerencji w wagi bazowe.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">02</span>
+          <div>
+            <p class="item-title">Sygnał: wybór A / B</p>
+            <p class="item-desc mt-sm">Trening DPO na parach odpowiedzi — preferowana vs. odrzucona.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">03</span>
+          <div>
+            <p class="item-title">Sygnał: uzasadnienie wyboru</p>
+            <p class="item-desc mt-sm">Wytłumaczenie decyzji wzmacnia sygnał treningowy — DPO z rationale.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">04</span>
+          <div>
+            <p class="item-title">Ochrona: ciągłe uczenie</p>
+            <p class="item-desc mt-sm">Mitygacja katastroficznego zapominania — stare preferencje nie są tracone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="img-ph r169">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="7" height="5" rx="1"/><rect x="15" y="7" width="7" height="5" rx="1"/><rect x="8.5" y="15" width="7" height="5" rx="1"/><path d="M9 9.5h6M12 12v3"/></svg>
+        Wstaw diagram „Ciągłe uczenie preferencji" ze slajdu 17
+      </div>
+      <p class="caption mt-sm">// schemat dwufazowego uczenia preferencji użytkownika</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── GUI / WYNIKI ───────────────────────────────── -->
+<section id="wyniki">
+  <div class="section-eye">interfejs i wyniki</div>
+  <h2>Hypothesis Forge w działaniu.</h2>
+  <p class="lead">Badacz zadaje pytanie — eksplorator przeszukuje graf — generator proponuje dwie hipotezy. Wybór + uzasadnienie kalibrują przyszłe generacje.</p>
+
+  <div class="img-ph r219 mt-lg">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="15" rx="2"/><path d="M2 8h20M7 3v5"/></svg>
+    Wstaw pełny screenshot interfejsu Hypothesis Forge (slajd 18)
+  </div>
+  <p class="caption mt-sm">// interfejs: wybór hipotezy A/B, widok grafu i panel uzasadnienia</p>
+
+  <div class="grid-2 mt-lg">
+    <div>
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+        <span class="tag">hipoteza generyczna</span>
+      </div>
+      <div class="fill-note">
+        📝 Wklej tutaj przykładową hipotezę wygenerowaną bez personalizacji.
+      </div>
+      <div class="img-ph r43 mt-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        Screenshot / tekst hipotezy generycznej
+      </div>
+    </div>
+    <div>
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+        <span class="tag green">hipoteza spersonalizowana</span>
+      </div>
+      <div class="fill-note">
+        📝 Wklej tutaj przykładową hipotezę po kilku iteracjach personalizacji — żeby pokazać różnicę.
+      </div>
+      <div class="img-ph r43 mt-sm" style="border-color: rgba(52,211,153,0.2);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        Screenshot / tekst hipotezy spersonalizowanej
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ZESPÓŁ ─────────────────────────────────────── -->
+<section id="zespol">
+  <div class="section-eye">zespół</div>
+  <div class="grid-2-wide">
+    <div>
+      <h2>Kto za tym stoi.</h2>
+      <p class="lead">Studenci kierunku Sztuczna Inteligencja na Politechnice Wrocławskiej. Projekt dyplomowy zaprezentowany na AI Forum 2026.</p>
+
+      <hr class="rule">
+
+      <div style="margin-bottom: 1.25rem;">
+        <p class="stat-label" style="margin-bottom:0.5rem;">Opiekun projektu</p>
+        <p style="font-size:1rem; font-weight:500; color: var(--text); margin-bottom:0.25rem;">dr inż. Arkadiusz Janz</p>
+        <p style="font-size:13px;">Politechnika Wrocławska · Wydział Informatyki i Telekomunikacji</p>
+      </div>
+
+      <div class="fill-note">
+        📝 Opcjonalnie: kilka słów o opiekunie, specjalności lub czego nauczył Was ten projekt.
+      </div>
+    </div>
+
+    <div class="grid-4">
+      <div class="member">
+        <div class="member-img img-ph r11">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;opacity:.3;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <p class="member-name">Mateusz Biedka</p>
+        <div class="fill-note" style="margin-top:0.4rem; padding: 0.3rem 0.5rem; font-size:9px;">📝 rola</div>
+      </div>
+      <div class="member">
+        <div class="member-img img-ph r11">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;opacity:.3;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <p class="member-name">Martin Kansik</p>
+        <div class="fill-note" style="margin-top:0.4rem; padding: 0.3rem 0.5rem; font-size:9px;">📝 rola</div>
+      </div>
+      <div class="member">
+        <div class="member-img img-ph r11">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;opacity:.3;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <p class="member-name">Tymoteusz Romanowicz</p>
+        <div class="fill-note" style="margin-top:0.4rem; padding: 0.3rem 0.5rem; font-size:9px;">📝 rola</div>
+      </div>
+      <div class="member">
+        <div class="member-img img-ph r11">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;opacity:.3;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <p class="member-name">Patryk Świat</p>
+        <div class="fill-note" style="margin-top:0.4rem; padding: 0.3rem 0.5rem; font-size:9px;">📝 rola</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="footer-l">Hypothesis Forge · AI Forum 2026</div>
+  <div class="footer-r">Politechnika Wrocławska · Kierunek Sztuczna Inteligencja</div>
+</footer>
+
+</body>
+</html>
