@@ -638,6 +638,16 @@ hr.rule {
   margin: 2rem 0;
 }
 
+/* ── REPO SECTION ─────────────────── */
+.repo-section {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--line2);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /* ── FOOTER ───────────────────────── */
 footer {
   position: relative;
@@ -969,28 +979,6 @@ footer {
           ]
         </div>
       </div>
-
-      <div class="item-list mt-md">
-        <div class="item-row">
-          <span class="item-idx">REPO</span>
-          <div style="flex: 1;">
-            <a href="https://github.com/ai-research-assistant-pwr/Agents" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem;">
-              Agents Ecosystem ↗
-            </a>
-            <p class="item-desc" style="margin-top: 4px; max-width: 100%;">Główny moduł wieloagentowy. Implementacja komunikacji i uczenia ze wzmocnieniem (GRPO/PPO) dla Retrievera i Generatora.</p>
-          </div>
-        </div>
-        <div class="item-row">
-          <span class="item-idx">REPO</span>
-          <div style="flex: 1;">
-            <a href="https://github.com/Mindflayer77/Scientific-Personalization" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem;">
-              Scientific Personalization ↗
-            </a>
-            <p class="item-desc" style="margin-top: 4px; max-width: 100%;">Moduł ciągłego uczenia preferencji badacza. Integracja z adapterami LoRA oraz optymalizacja DPO z uzasadnieniem (rationale).</p>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1216,6 +1204,31 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- ── REPOZYTORIA ──────────────────────────────────────────── -->
+<div class="repo-section" id="repozytoria">
+  <div class="section-eye" style="margin-bottom: 1.5rem;">repozytoria</div>
+  <div class="item-list">
+    <div class="item-row">
+      <span class="item-idx">REPO</span>
+      <div style="flex: 1;">
+        <a href="https://github.com/ai-research-assistant-pwr/Agents" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem;">
+          Agents Ecosystem ↗
+        </a>
+        <p class="item-desc" style="margin-top: 4px; max-width: 100%;">Główny moduł wieloagentowy. Implementacja komunikacji i uczenia ze wzmocnieniem (GRPO/PPO) dla Retrievera i Generatora.</p>
+      </div>
+    </div>
+    <div class="item-row">
+      <span class="item-idx">REPO</span>
+      <div style="flex: 1;">
+        <a href="https://github.com/Mindflayer77/Scientific-Personalization" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem;">
+          Scientific Personalization ↗
+        </a>
+        <p class="item-desc" style="margin-top: 4px; max-width: 100%;">Moduł ciągłego uczenia preferencji badacza. Integracja z adapterami LoRA oraz optymalizacja DPO z uzasadnieniem (rationale).</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="footer-l">Kuźnia Hipotez · AI Forum 2026</div>
