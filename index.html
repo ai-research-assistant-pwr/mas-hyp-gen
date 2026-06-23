@@ -978,28 +978,42 @@ footer {
   <div class="grid-2">
     <div>
       <h2>Czym mierzymy jakość hipotezy?</h2>
-      <p>Trzy komplementarne podejścia — ocena modelu (LLM Judge), miara różnorodności zbioru i dopasowanie do stylu badacza.</p>
+      <p>W pracy zaproponowano pięć automatycznych metryk jakości hipotez. Trzy z nich ocenia model-sędzia, a dwie są liczone na osadzeniach semantycznych hipotez.</p>
 
       <div class="item-list mt-md">
         <div class="item-row">
           <span class="item-idx">01</span>
           <div>
-            <p class="item-title">LLM Judge</p>
-            <p class="item-desc mt-sm">Ugruntowanie w wiedzy naukowej · Istotność względem zapytania · Klarowność metodologiczna</p>
+            <p class="item-title">Istotność względem zapytania</p>
+            <p class="item-desc mt-sm">GPT-5.4-mini sprawdza, czy hipoteza odpowiada na wszystkie koncepty zawarte w pytaniu użytkownika. Skala: 0–3.</p>
           </div>
         </div>
         <div class="item-row">
           <span class="item-idx">02</span>
           <div>
-            <p class="item-title">Różnorodność</p>
-            <p class="item-desc mt-sm">Czy system eksploruje różne obszary grafu? Mierzymy zróżnicowanie hipotez w jednej iteracji.</p>
+            <p class="item-title">Ugruntowanie w wiedzy naukowej</p>
+            <p class="item-desc mt-sm">Model-sędzia ocenia, ile twierdzeń z hipotezy ma pokrycie w dostarczonych artykułach i ich streszczeniach. Skala: 0–3.</p>
           </div>
         </div>
         <div class="item-row">
           <span class="item-idx">03</span>
           <div>
-            <p class="item-title">Persona</p>
-            <p class="item-desc mt-sm">Dopasowanie do preferowanej metodologii i stylu komunikacji konkretnego użytkownika.</p>
+            <p class="item-title">Jasność metodologiczna</p>
+            <p class="item-desc mt-sm">Metryka sprawdza, czy hipoteza zawiera zmienne, metodę testowania, benchmarki i szczegóły pozwalające rozpocząć eksperyment.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">04</span>
+          <div>
+            <p class="item-title">Różnorodność hipotez</p>
+            <p class="item-desc mt-sm">Qwen3-Embedding-4B tworzy wektory hipotez, a wynik bazuje na średnim podobieństwie cosinusowym par w jednej generacji.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">05</span>
+          <div>
+            <p class="item-title">Podobieństwo do hipotezy docelowej</p>
+            <p class="item-desc mt-sm">System próbuje odtworzyć hipotezę z opublikowanej pracy na podstawie cytowanych artykułów, bez dostępu do pracy docelowej.</p>
           </div>
         </div>
       </div>
@@ -1007,7 +1021,8 @@ footer {
 
     <div>
       <h3>Walidacja oceny automatycznej</h3>
-      <p class="mt-sm">Zbadaliśmy zgodność ocen LLM Judge z adnotacjami ludzkimi na kilkudziesięciu próbkach kontrolnych. Wysoka korelacja, potwierdzona przy użyciu współczynnika <strong>Kappa Cohena</strong>, udowadnia, że automatyczna ewaluacja jest wiarygodna.</p>
+      <p class="mt-sm">Metryki oparte na modelu-sędzi zostały porównane z ocenami ludzkiego anotatora przy użyciu kwadratowo ważonej kappy. Istotność osiągnęła wynik 0,7047, ugruntowanie 0,6208, a jasność metodologiczna 0,5594, co wskazuje na umiarkowaną lub wysoką zgodność.</p>
+      <p>Metryki embeddingowe zweryfikowano osobno: podobieństwo cosinusowe między hipotezami korelowało z ludzką oceną podobieństwa na poziomie Spearmana 0,74 dla 50 par hipotez.</p>
 
       <img class="fill mt-md" src="assets/images/zgodnosc-llm-ludzie.png" alt="Wykres zgodności ocen ludzi i modelu">
     </div>
@@ -1019,7 +1034,7 @@ footer {
   <div class="grid-2">
     <div>
       <h2>Co zmienia trening?</h2>
-      <p>System trenowany przez GRPO / PPO wyraźnie poprawia podobieństwo do hipotezy docelowej i istotność wobec zapytania. Obserwujemy naturalny trade-off w różnorodności.</p>
+      <p>Uczenie ze wzmocnieniem optymalizuje wspólną politykę dwóch agentów: Retrievera i Generatora. Obaj korzystają z Qwen3-4B, ale działają w innych rolach i dostają wspólną nagrodę za całą trajektorię generowania hipotez.</p>
 
       <div class="mt-md grid-3" style="gap:1px; background:var(--line2); border:1px solid var(--line2);">
         <div class="stat-block" style="padding: 1.25rem;">
@@ -1035,11 +1050,54 @@ footer {
           <p class="stat-val" style="font-size:1.5rem;">−52<span>%</span></p>
         </div>
       </div>
+
+      <div class="item-list mt-md">
+        <div class="item-row">
+          <span class="item-idx">GRPO</span>
+          <div>
+            <p class="item-title">Group Relative Policy Optimization</p>
+            <p class="item-desc mt-sm" style="max-width: 48ch;">Przewaga trajektorii jest liczona względem grupy odpowiedzi dla tego samego wejścia. W eksperymentach GRPO dało lepsze wyniki niż PPO.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">PPO</span>
+          <div>
+            <p class="item-title">Proximal Policy Optimization</p>
+            <p class="item-desc mt-sm" style="max-width: 48ch;">Wariant porównawczy korzystał z modelu krytyka i normalizacji nagród. Wyniki były słabsze, prawdopodobnie także przez ograniczony przegląd hiperparametrów.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">SFT</span>
+          <div>
+            <p class="item-title">Nadzorowane douczanie przed RL</p>
+            <p class="item-desc mt-sm" style="max-width: 48ch;">Trajektorie wygenerowane przez Qwen3-32B uczą mniejszy model formatowania i lepszych ścieżek rozumowania, co zwiększa efektywność późniejszego GRPO.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div>
       <img class="fill" src="assets/images/wyniki-treningu.png" alt="Wykres prezentujący wpływ podstawowego treningu na wyniki">
       <p class="caption">// metryki przed i po treningu: podobieństwo, różnorodność, istotność, ugruntowanie, jasność</p>
+
+      <div class="terminal mt-md">
+        <div class="terminal-bar">
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+          <span class="terminal-title">reward.py</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Wspólna nagroda dla trajektorii Retriever → Generator</span><br>
+          <span class="t-key">R</span> = <span class="t-key">w_sim</span>·<span class="t-val">similarity</span> + <span class="t-key">w_div</span>·<span class="t-val">diversity</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;+ <span class="t-key">w_rel</span>·<span class="t-val">relevance</span> + <span class="t-key">w_grd</span>·<span class="t-val">grounding</span><br>
+          <br>
+          <span class="t-comment"># Tanie nagrody treningowe</span><br>
+          <span class="t-key">similarity</span>, <span class="t-key">diversity</span>: <span class="t-str">"Qwen3-Embedding-4B + cosine"</span><br>
+          <span class="t-key">relevance</span>, <span class="t-key">grounding</span>: <span class="t-str">"Qwen3-Reranker-0.6B"</span><br>
+          <span class="t-key">format_error</span>: <span class="t-num">-10</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1096,7 +1154,7 @@ footer {
   <p class="lead">Badacz zadaje pytanie — eksplorator przeszukuje graf — generator proponuje dwie hipotezy. Wybór + uzasadnienie kalibrują przyszłe generacje.</p>
 
   <img class="fill mt-lg" src="assets/images/interfejs-aplikacji.png" alt="Zrzut ekranu przedstawiający interfejs graficzny programu Kuźni Hipotez">
-  <p class="caption style="text-align: center;">// interfejs: wybór hipotezy A/B, widok grafu i panel uzasadnienia</p>
+  <p class="caption" style="text-align: center;">// interfejs: wybór hipotezy A/B, widok grafu i panel uzasadnienia</p>
 </section>
 
 <section id="zespol">
