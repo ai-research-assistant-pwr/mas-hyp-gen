@@ -294,14 +294,14 @@ p { color: var(--muted2); font-weight: 300; line-height: 1.75; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center; /* Zmodyfikowano z start na center */
+  align-items: center;
 }
 
 .grid-2-wide {
   display: grid;
   grid-template-columns: 5fr 7fr;
   gap: 4rem;
-  align-items: center; /* Zmodyfikowano z start na center */
+  align-items: center;
 }
 
 .grid-3 {
@@ -969,6 +969,37 @@ footer {
           ]
         </div>
       </div>
+
+      <div class="item-list mt-md">
+        <div class="item-row">
+          <span class="item-idx">REPO</span>
+          <div style="flex: 1;">
+            <a href="https://github.com/ai-research-assistant-pwr/Agents" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem;">
+              Agents Ecosystem ↗
+            </a>
+            <p class="item-desc" style="margin-top: 4px; max-width: 100%;">Główny moduł wieloagentowy. Implementacja komunikacji i uczenia ze wzmocnieniem (GRPO/PPO) dla Retrievera i Generatora.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">REPO</span>
+          <div style="flex: 1;">
+            <a href="https://github.com/Mindflayer77/Scientific-Personalization" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem;">
+              Scientific Personalization ↗
+            </a>
+            <p class="item-desc" style="margin-top: 4px; max-width: 100%;">Moduł ciągłego uczenia preferencji badacza. Integracja z adapterami LoRA oraz optymalizacja DPO z uzasadnieniem (rationale).</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <span class="item-idx">REPO</span>
+          <div style="flex: 1;">
+            <a href="https://github.com/ai-research-assistant-pwr/graph" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem;">
+              Knowledge Graph Pipeline ↗
+            </a>
+            <p class="item-desc" style="margin-top: 4px; max-width: 100%;">Skrypty przetwarzania i budowy grafu wiedzy. Integracja z Semantic Scholar API oraz przetwarzanie dokumentów przez DeepSeek-OCR.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1102,7 +1133,7 @@ footer {
   </div>
 </section>
 
-<section>
+<section id="personalizacja">
   <div class="section-eye">personalizacja</div>
   <div class="grid-2-wide">
     <div>
@@ -1121,7 +1152,7 @@ footer {
           <span class="item-idx">02</span>
           <div>
             <p class="item-title">Sygnał: wybór A / B</p>
-            <p class="item-desc mt-sm">Trening DPO na parach odpowiedzi — preferowana vs. odrzucona.</p>
+            <p class="item-desc mt-sm">Trening DPO na pavers odpowiedzi — preferowana vs. odrzucona.</p>
           </div>
         </div>
         <div class="item-row">
@@ -1197,7 +1228,11 @@ footer {
 
 <footer>
   <div class="footer-l">Kuźnia Hipotez · AI Forum 2026</div>
-  <div class="footer-r">Politechnika Wrocławska · Kierunek Sztuczna Inteligencja</div>
+  <div class="footer-r" style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+    <a href="https://github.com/ai-research-assistant-pwr" target="_blank" style="color: var(--muted); text-decoration: none; font-family: var(--mono); font-size: 11px; transition: color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">GitHub Organization ↗</a>
+    <span style="color: var(--line2);">·</span>
+    <span>Politechnika Wrocławska · Kierunek Sztuczna Inteligencja</span>
+  </div>
 </footer>
 
 </body>
