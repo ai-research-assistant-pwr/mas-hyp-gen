@@ -553,7 +553,7 @@ p { color: var(--muted2); font-weight: 300; line-height: 1.75; }
 img.fill {
   width: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: var(--r);
 }
 
@@ -612,7 +612,7 @@ img.fill {
   margin-bottom: 1rem;
   overflow: hidden;
   border-radius: var(--r);
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
@@ -885,7 +885,7 @@ footer {
     <div>
       <h2>Relewantność vs. dywersyfikacja.</h2>
       <p>Przetestowaliśmy kilka strategii przeszukiwania grafu i porównaliśmy je na dwóch osiach: jak trafne są hipotezy względem zapytania, i jak bardzo są od siebie różne.</p>
-      <p class="mt-sm">Nasza metoda agentowa przesuwa wynik w prawą górną część wykresu — jednocześnie wyżej na obu osiach.</p>
+      <p class="mt-sm">Nasza metoda agentowa zapewnia najlepszy kompromis w obydwu metrykach.</p>
 
       <div class="mt-md item-list">
         <div class="item-row">
@@ -906,7 +906,7 @@ footer {
         <div class="item-row highlight">
           <span class="item-idx" style="color:var(--accent);">ARW</span>
           <span class="item-title accent">Agentic Random Walk</span>
-          <span class="item-desc">Nasza metoda. Najlepszy wynik na obu osiach łącznie.</span>
+          <span class="item-desc">Nasza metoda. Najlepszy kompromis.</span>
         </div>
       </div>
     </div>
