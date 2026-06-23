@@ -294,14 +294,14 @@ p { color: var(--muted2); font-weight: 300; line-height: 1.75; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: start;
+  align-items: center; /* Zmodyfikowano z start na center */
 }
 
 .grid-2-wide {
   display: grid;
   grid-template-columns: 5fr 7fr;
   gap: 4rem;
-  align-items: start;
+  align-items: center; /* Zmodyfikowano z start na center */
 }
 
 .grid-3 {
@@ -1102,31 +1102,6 @@ footer {
 
   <img class="fill r219 mt-lg" src="assets/images/interfejs-aplikacji.png" alt="Zrzut ekranu przedstawiający interfejs graficzny programu Kuźni Hipotez">
   <p class="caption mt-sm">// interfejs: wybór hipotezy A/B, widok grafu i panel uzasadnienia</p>
-
-  <div class="grid-2 mt-lg">
-    <div>
-      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
-        <span class="tag">hipoteza generyczna</span>
-      </div>
-      
-      <div style="font-size: 0.9rem; color: var(--muted2); line-height: 1.6; padding: 1rem; background: var(--bg2); border-radius: var(--r); border: 1px dashed var(--line2); margin-bottom: 1rem;">
-        [Wklej tutaj treść hipotezy wygenerowanej przed personalizacją]
-      </div>
-
-      <img class="fill r43 mt-sm" src="assets/images/hipoteza-generyczna.png" alt="Przykładowy zrzut tekstu hipotezy generycznej">
-    </div>
-    <div>
-      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
-        <span class="tag green">hipoteza spersonalizowana</span>
-      </div>
-      
-      <div style="font-size: 0.9rem; color: var(--muted2); line-height: 1.6; padding: 1rem; background: rgba(52,211,153,0.04); border-radius: var(--r); border: 1px dashed rgba(52,211,153,0.3); margin-bottom: 1rem;">
-        [Wklej tutaj treść hipotezy wygenerowanej po uwzględnieniu preferencji i personalizacji badacza]
-      </div>
-
-      <img class="fill r43 mt-sm" style="border-color: rgba(52,211,153,0.2);" src="assets/images/hipoteza-spersonalizowana.png" alt="Przykładowy zrzut tekstu hipotezy spersonalizowanej">
-    </div>
-  </div>
 </section>
 
 <section id="zespol">
