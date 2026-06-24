@@ -601,24 +601,23 @@ img.fill {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  height: 100%; /* Wymusza równą wysokość wszystkich kart w siatce */
+  height: 100%; 
 }
 
 .member-img {
   width: 100%;
-  aspect-ratio: 1/1; /* Gwarantuje idealny kwadrat niezależnie od wymiarów oryginału */
+  aspect-ratio: 1/1;
   margin-bottom: 1rem;
-  overflow: hidden;
   border-radius: var(--r);
-  object-fit: cover; /* Przycina zdjęcie tak, aby wypełniło kwadrat bez zniekształceń */
+  object-fit: cover;
   display: block;
+  flex-shrink: 0; /* Blokuje ściskanie zdjęcia przez Flexboxa */
 }
 
 .member-name {
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text);
-  /* Usuwamy margin-bottom, bo e-mail sam odpowiednio się odsunie */
 }
 
 .member-email {
@@ -629,7 +628,7 @@ img.fill {
   letter-spacing: 0.03em;
   transition: color 0.15s ease;
   padding-top: 4px;
-  margin-top: auto; /* Kluczowa zasada: wypycha element na sam dół karty */
+  margin-top: auto; /* Wypycha e-mail na sam dół */
 }
 
 .member-email:hover {
