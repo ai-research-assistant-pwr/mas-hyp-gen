@@ -599,15 +599,18 @@ img.fill {
 .member {
   background: var(--bg2);
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Wymusza równą wysokość wszystkich kart w siatce */
 }
 
 .member-img {
   width: 100%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/1; /* Gwarantuje idealny kwadrat niezależnie od wymiarów oryginału */
   margin-bottom: 1rem;
   overflow: hidden;
   border-radius: var(--r);
-  object-fit: cover;
+  object-fit: cover; /* Przycina zdjęcie tak, aby wypełniło kwadrat bez zniekształceń */
   display: block;
 }
 
@@ -615,18 +618,18 @@ img.fill {
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text);
-  margin-bottom: 4px;
+  /* Usuwamy margin-bottom, bo e-mail sam odpowiednio się odsunie */
 }
 
 .member-email {
-  display: block;
   font-family: var(--mono);
   font-size: 10px;
   color: var(--muted);
   text-decoration: none;
-  margin-top: 2px;
   letter-spacing: 0.03em;
   transition: color 0.15s ease;
+  padding-top: 4px;
+  margin-top: auto; /* Kluczowa zasada: wypycha element na sam dół karty */
 }
 
 .member-email:hover {
